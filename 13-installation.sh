@@ -7,32 +7,24 @@ if [ $USERID -ne 0 ]; then
    exit 1
 fi
 
+VALIDATE(){  # functions receive inputs through args just like shell script args
+   if [ $1 - ne 0 ]; then
+     echo "ERROR:: install $2 failure "
+     exit 1
+   fi
+
+   else
+      echo "install $2 is SUCCESS"
+   fi 
+
+}
+
+
 dnf install mysql -y
-
-if [ $? - ne 0 ]; then
-   echo "ERROR:: install mysql failure "
-   exit 1
-fi
-
-else
-   echo "install mysql is SUCCESS"
-fi 
+VALIDATE $? "MYSQL"
 
 dnf install nginx -y
+VALIDATE $? "nginx"
 
-if [ $? -ne 0 ]; then
-   echo "ERROR:: install nginx failure"
-   exit 1
-fi
-else
-   echo "install nginx is SUCCESS" 
-fi
 dnf install python3 -y
-
-if [ $? ne -0 ]; then
-   echo "ERROR:: install python3 failure"
-   exit 1
-fi
-else
-    echo "install python3 SUCCESS"   
-fi    
+VALIDATE $? "python3"
